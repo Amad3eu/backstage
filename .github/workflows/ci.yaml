@@ -17,6 +17,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.21.1'
+
+      # A imagem ubuntu-slim não traz o Yarn, e o setup-node precisa dele no
+      # PATH para localizar o cache. O Corepack vem com o Node e resolve isso.
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Restore Yarn cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.21.1'
           cache: 'yarn'
 
       - name: Install dependencies
